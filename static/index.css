@@ -1,0 +1,358 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html, #root {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    overflow-y: auto; /* enable vertical scrolling */
+}
+
+@keyframes shadowFlow {
+    0%, 100% {
+        transform: translateY(0px);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(20px);
+        opacity: 0.8;
+    }
+}
+
+/* Floating items container */
+.items-container {
+    position: fixed; /* fixed so form scrolls over them */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0; /* behind the form */
+}
+
+/* --- Floating objects styles (rock, screw, rod, etc.) --- */
+/* Rock styles */
+.rock {
+    position: absolute;
+    background: linear-gradient(135deg, #F5F5F5 0%, #DCDCDC 25%, #C0C0C0 50%, #A9A9A9 75%, #808080 100%);
+    border-radius: 45% 55% 40% 60% / 50% 40% 60% 50%;
+    box-shadow: inset -3px -3px 8px rgba(0,0,0,0.3),
+                inset 3px 3px 8px rgba(255,255,255,0.7),
+                0 4px 12px rgba(0,0,0,0.2),
+                0 2px 6px rgba(0,0,0,0.1);
+    animation: fallRotate linear forwards;
+    opacity: 1;
+}
+.rock::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    width: 30%;
+    height: 25%;
+    background: radial-gradient(circle, rgba(245,245,245,0.8), transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(192,192,192,0.5),
+                inset 0 0 4px rgba(255,255,255,0.9);
+}
+.rock::after {
+    content: '';
+    position: absolute;
+    top: 60%;
+    right: 25%;
+    width: 20%;
+    height: 20%;
+    background: radial-gradient(circle, rgba(169,169,169,0.6), transparent);
+    border-radius: 50%;
+}
+.rock-small { width: 20px; height: 16px; }
+.rock-medium { width: 28px; height: 22px; }
+.rock-large { width: 35px; height: 28px; }
+.rock-extra-large { width: 42px; height: 34px; }
+
+/* Screw styles */
+.screw {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #F0F0F0 30%, #C0C0C0 60%, #A0A0A0 90%);
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 4px rgba(0,0,0,0.4),
+                inset 2px 2px 4px rgba(255,255,255,0.8),
+                0 3px 8px rgba(0,0,0,0.3);
+    animation: fallRotate linear forwards;
+    border: 1px solid #999;
+}
+.screw::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 2px;
+    background: linear-gradient(90deg, #555, #333, #555);
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 0.5px #777,
+                inset 0 1px 0 rgba(255,255,255,0.3),
+                inset 0 -1px 0 rgba(0,0,0,0.3);
+    border-radius: 1px;
+}
+.screw::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px; right: 2px; bottom: 2px;
+    border: 1px solid #DDD;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 70%);
+}
+
+/* Rod styles */
+.rod {
+    position: absolute;
+    width: 12px;
+    height: 80px;
+    background: linear-gradient(90deg, #E8E8E8, #C0C0C0, #A9A9A9, #C0C0C0, #E8E8E8);
+    border-radius: 6px;
+    box-shadow: inset -2px -2px 6px rgba(0,0,0,0.3),
+                inset 2px 2px 6px rgba(255,255,255,0.7),
+                0 4px 8px rgba(0,0,0,0.2);
+    animation: fallRotate linear forwards;
+}
+
+/* Frame styles */
+.frame {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: transparent;
+    border: 5px solid #A9A9A9;
+    border-radius: 6px;
+    box-shadow: inset -3px -3px 8px rgba(0,0,0,0.2),
+                inset 3px 3px 8px rgba(255,255,255,0.5),
+                0 6px 16px rgba(0,0,0,0.2);
+    animation: fallRotate linear forwards;
+}
+.frame::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48px;
+    height: 48px;
+    border: 3px solid #808080;
+    border-radius: 3px;
+    transform: translate(-50%, -50%);
+}
+
+/* Can styles */
+.can {
+    position: absolute;
+    width: 28px;
+    height: 42px;
+    background: linear-gradient(135deg, #F5F5F5, #DCDCDC, #C0C0C0);
+    border-radius: 4px 4px 8px 8px;
+    box-shadow: inset -4px -4px 8px rgba(0,0,0,0.3),
+                inset 4px 4px 8px rgba(255,255,255,0.7),
+                0 4px 12px rgba(0,0,0,0.2);
+    animation: fallRotate linear forwards;
+}
+.can::before {
+    content: '';
+    position: absolute;
+    top: 4px; left: 50%;
+    width: 20px; height: 4px;
+    background: #999;
+    border-radius: 2px;
+    transform: translateX(-50%);
+}
+.can::after {
+    content: '';
+    position: absolute;
+    bottom: 3px; left: 3px; right: 3px;
+    height: 4px;
+    background: linear-gradient(90deg, #A9A9A9, #C0C0C0, #A9A9A9);
+    border-radius: 0 0 4px 4px;
+}
+
+/* Utensil styles */
+.utensil {
+    position: absolute;
+    width: 8px;
+    height: 65px;
+    background: linear-gradient(180deg, #F5F5F5, #DCDCDC, #C0C0C0);
+    border-radius: 3px 3px 0 0;
+    box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3),
+                inset 2px 2px 4px rgba(255,255,255,0.7),
+                0 3px 8px rgba(0,0,0,0.2);
+    animation: fallRotate linear forwards;
+}
+.utensil::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    width: 16px; height: 20px;
+    background: linear-gradient(135deg, #E8E8E8, #C0C0C0);
+    border-radius: 8px 8px 0 0;
+    transform: translateX(-50%);
+    box-shadow: inset -2px -2px 4px rgba(0,0,0,0.2),
+                inset 2px 2px 4px rgba(255,255,255,0.5);
+}
+
+/* Z-index classes */
+.behind-form { z-index: 1; }
+.front-form { z-index: 1; }
+
+@keyframes fallRotate {
+    0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translateY(calc(100vh + 100px)) rotate(360deg); opacity: 0; }
+}
+
+/* --- Form styles --- */
+body, html {
+    height: auto; /* auto height for scrolling */
+    margin: 0;
+    display: block; /* remove flex centering */
+    background: #E8E8E8;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Centered form without float */
+form {
+    background: rgba(248,248,255,0.95);
+    backdrop-filter: blur(15px);
+    padding: 20px 30px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(128,128,128,0.3),
+                0 0 0 1px rgba(192,192,192,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.4);
+    width: 700px; /* reduced from 1000px */
+    position: relative;
+    z-index: 10;
+    border: 2px solid rgba(169,169,169,0.3);
+    margin: 30px auto; /* centers the form horizontally with some top margin */
+}
+
+/* Remove float animation */
+@keyframes float {
+    0%, 100%, 50% { transform: translateY(0); }
+}
+
+
+/* Subtle glow */
+form::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: rgba(192,192,192,0.3);
+    border-radius: 18px;
+    z-index: -1;
+    opacity: 0.6;
+    filter: blur(6px);
+}
+
+/* Headings */
+h2 {
+    text-align: center;
+    margin-bottom: 28px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #555555;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 4px rgba(128,128,128,0.3);
+}
+
+/* Buttons */
+button {
+    width: 25%;
+    padding: 14px;
+    margin-top: 28px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #C0C0C0, #A9A9A9);
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 20px rgba(169,169,169,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+    letter-spacing: -0.01em;
+}
+button:hover {
+    background: linear-gradient(135deg, #A9A9A9, #808080);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(128,128,128,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+}
+button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(105,105,105,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+/* Paragraphs */
+p { text-align: center; margin-top: 24px; font-size: 15px; color: #6b7280; font-weight: 500; }
+
+/* Links */
+a { color: #6b7280; text-decoration: none; font-weight: bold; transition: color 0.2s ease; }
+a:hover { color: #000; text-decoration: underline; }
+
+/* Inputs */
+.form-group input[type="text"], .form-group input[type="number"], .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+.form-group input:hover, .form-group select:hover {
+    border-color: #cbd5e1;
+}
+
+/* Labels */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+}
+
+/* Two fields side by side */
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.form-row .form-group { flex: 1; }
+.form-row .form-group.half { flex: 0.5; }
+
+.dimension-row {
+    display: flex;
+    gap: 20px; /* space between fields */
+    justify-content: space-between;
+}
+
+.dimension-row .form-group {
+    flex: 1; /* equal width */
+}
