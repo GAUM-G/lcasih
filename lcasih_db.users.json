@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "68d4ec50ab5f6b204f05038a"
+  },
+  "name": "sih",
+  "email": "sih@gmail.com",
+  "password": "sih",
+  "created_at": {
+    "$date": "2025-09-25T07:16:32.222Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68d4eea7438b8aaca720d25f"
+  },
+  "name": "gg",
+  "email": "gg@gmail.com",
+  "password": "gg12344",
+  "created_at": {
+    "$date": "2025-09-25T07:26:31.834Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68d4f271ef85f7e296c35698"
+  },
+  "name": "car",
+  "email": "car@gmail.com",
+  "password": "car1234",
+  "created_at": {
+    "$date": "2025-09-25T07:42:41.150Z"
+  }
+}]
