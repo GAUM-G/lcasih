@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results Page</title>
+  <link rel="stylesheet" href="../static/answer.css">
+</head>
+<body>
+  <div class="form-container">
+    <form>
+      <h2>Results</h2>
+
+      <div class="input-group">
+        <label>1. Per Unit CO₂</label>
+        <input type="text" id="co2" value="{{ co2 }}" readonly>
+      </div>
+
+      <div class="input-group">
+        <label>2. Electricity Cost</label>
+        <input type="text" id="electricity" value="{{ electricity }}" readonly>
+      </div>
+
+      <div class="input-group">
+        <label>3. Total</label>
+        <input type="text" id="total1" value="{{ total1 }}" readonly>
+      </div>
+
+      <div class="input-group">
+        <label>4. Per Unit Transport</label>
+        <input type="text" id="transport" value="{{ transport }}" readonly>
+      </div>
+
+      <div class="input-group">
+        <label>5. Waste Water</label>
+        <input type="text" id="waste" value="{{ waste }}" readonly>
+      </div>
+
+      <div class="input-group">
+        <label>6. Total</label>
+        <input type="text" id="total2" value="{{ total2 }}" readonly>
+      </div>
+
+      <div class="input-group">
+        <label>7. Mega Total + Quality</label>
+        <input type="text" id="mega" value="{{ mega }}" readonly>
+      </div>
+
+      <button type="submit">Save Results</button>
+    </form>
+  </div>
+</body>
+</html>
